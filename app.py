@@ -1,6 +1,7 @@
 import uuid
 from random import randrange
 from flask import Flask, session, request, redirect, url_for
+import json
 app = Flask(__name__)
 
 
@@ -15,6 +16,7 @@ class Game:
     self.started = False
     self.ended = False
     self.winner = None
+    self.the_last_word = None
   def addPlayer(self, player_id):
     self.players.append(player_id)
     if len(self.players) == Game.MAX_PLAYERS:
@@ -48,32 +50,35 @@ def getGame(player_id):
   return game
 
 
-@app.route("/", methods=['GET', 'POST'])
-def index():
+@app.route("/gamestate")
+def gamestate():
   if not 'player_id' in session:
     session['player_id'] = str(uuid.uuid1())
   game = getGame(session['player_id'])
-  if request.method == "GET":
-    turn_message = "It is NOT your turn."
-    if game.isPlayerTurn(session['player_id']):
-      turn_message = "It is your turn."
-    started_message = "is not"
-    if game.started:
-      started_message = "is"
-    winner_message = ""
-    if game.ended:
-      if game.winner == session['player_id']:
-        winner_message = "You win."
-      else:
-        winner_message = "You lose."
-      
-    
-    form = "<form method=POST><input type=submit></form>" if game.isPlayerTurn(session['player_id']) else ""
+  result = { 'gamestate':game.__dict__, 'you':session['player_id'] }
 
-    return "You are player %s<br>You're in game %s<br>%s<br>The game %s started.<br>%s<br>%s" % (session['player_id'], repr(game), turn_message, started_message, winner_message, form)
+  return json.dumps(result)
+
+@app.route("/move", methods=['GET', 'POST'])
+def move():
+  
+  game = getGame(session['player_id'])
+  if not game.isPlayerTurn(session['player_id']):
+    return "It's not your turn, dumbass.";
+  
+  new_word = request.form['word']
+  if not game.the_last_word or game.the_last_word[-1] == new_word[0]:
+    game.the_last_word = new_word
   else:
-    game.setWinner(session['player_id'])
-    return redirect(url_for('index'))
+    return "That word sucks."
+
+  if not  game.turn:
+    game.turn = 1
+  else:
+    game.turn = 0
+
+  return "";
+
 
 
 

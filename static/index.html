@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<head>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript">
+$(function(){
+
+  function isMyTurn(data) {
+    if( data.you == data.gamestate.players[data.gamestate.turn] ) 
+      return true;
+    return false;
+  }
+
+  var loop = function() {
+    console.log("foo");
+    $.getJSON('/gamestate', function(data) {
+      console.log(data);
+      
+      if(isMyTurn(data)) {
+        $("#turn").html("it's your turn");
+      } else {
+        $("#turn").html("waiting for opponent");
+      }      
+      
+      $("#word").html(data.gamestate.the_last_word);
+
+    });
+  };
+
+  $("#bustamove").click(function(){
+    $.post('/move', { 'word' : $("#hopefullyaword").val() }, function(data) {
+      if(data != "")
+        alert(data);
+    });
+  });
+
+  setInterval(loop, 1000);
+
+});
+</script>
+
+</head>
+<body>
+<div id="turn"></div>
+<div id="word"></div>
+<input id="hopefullyaword"></input>
+<div id="bustamove" style="color: #00ee00; padding: 10px; background: #444; display: block; width: 200px;">MOVE BITCH GET OUTTA DA WAY</div>
+</body>
