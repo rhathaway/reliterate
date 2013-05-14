@@ -78,13 +78,11 @@ div {
 .u4 {
     position:absolute;
     left:34px;
-    top:223px;
-    width:60px;
+    top:218px;
+    width:200px;
     height:21px;
-    ;
-    ;
-    ;
     font-family:Arial;
+    font-size: 28px;
     text-align:left;
     word-wrap:break-word;
 }
@@ -119,10 +117,13 @@ div {
 
 #u7 {
     position:absolute;
-    left:246px;
+    left:40px;
     top:401px;
-    width:148px;
+    width:560px;
     height:148px;
+    font-family: sans-serif;
+    font-size: 36px;
+    text-align: center;
     overflow:hidden;
 }
 
