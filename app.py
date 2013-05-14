@@ -16,7 +16,7 @@ class Game:
     self.started = False
     self.ended = False
     self.winner = None
-    self.the_last_word = None
+    self.moves = []
   def addPlayer(self, player_id):
     self.players.append(player_id)
     if len(self.players) == Game.MAX_PLAYERS:
@@ -67,8 +67,8 @@ def move():
     return "It's not your turn.";
   
   new_word = request.form['word']
-  if not game.the_last_word or game.the_last_word.lower()[-1] == new_word.lower()[0]:
-    game.the_last_word = new_word
+  if game.moves == [] or game.moves[-1].lower()[-1] == new_word.lower()[0]:
+    game.moves.append(new_word)
   else:
     return "Your word must start with the last letter of your opponent's word."
 

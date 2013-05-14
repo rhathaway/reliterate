@@ -28,9 +28,15 @@ $(function(){
           text_input.val("waiting for opponent");
         text_input.prop('disabled', true);
       }      
-      
+
       if(isMyTurn(data)) {
-        their_word.html(data.gamestate.the_last_word);
+        if( data.gamestate.moves.len > 1 )
+          your_word.html(data.gamestate.moves.slice(-2)[0]);
+        their_word.html(data.gamestate.moves.slice(-1)[0]);
+      } else {
+        your_word.html(data.gamestate.moves.slice(-1)[0]);
+        if( data.gamestate.moves.len > 1 )
+          their_word.html(data.gamestate.moves.slice(-2)[0]);
       }
     });
   };
@@ -49,7 +55,7 @@ $(function(){
         alert(data);
       } else {
         //  display your submitted word in the appropriate area
-        your_word.html( text_input.val() ); 
+        //your_word.html( text_input.val() ); 
       }
     });
   });
