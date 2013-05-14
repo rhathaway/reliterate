@@ -1,48 +1,64 @@
-<!DOCTYPE html>
+﻿<html>
 <head>
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-<script type="text/javascript">
-$(function(){
-
-  function isMyTurn(data) {
-    if( data.you == data.gamestate.players[data.gamestate.turn] ) 
-      return true;
-    return false;
-  }
-
-  var loop = function() {
-    console.log("foo");
-    $.getJSON('/gamestate', function(data) {
-      console.log(data);
-      
-      if(isMyTurn(data)) {
-        $("#turn").html("it's your turn");
-      } else {
-        $("#turn").html("waiting for opponent");
-      }      
-      
-      $("#word").html(data.gamestate.the_last_word);
-
-    });
-  };
-
-  $("#bustamove").click(function(){
-    $.post('/move', { 'word' : $("#hopefullyaword").val() }, function(data) {
-      if(data != "")
-        alert(data);
-    });
-  });
-
-  setInterval(loop, 1000);
-
-});
-</script>
-
+    <title>Login</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="imagetoolbar" content="no"/>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=0.5, maximum-scale=0.5, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <link href="resources/css/jquery-ui-themes.css" type="text/css" rel="stylesheet">
+    <link href="resources/css/axure_rp_page.css" type="text/css" rel="stylesheet">
+    <link href="Login_files/axurerp_pagespecificstyles.css" type="text/css" rel="stylesheet">
+<!--[if IE 6]>
+    <link href="Login_files/axurerp_pagespecificstyles_ie6.css" type="text/css" rel="stylesheet">
+<![endif]-->
+    <script src="data/sitemap.js"></script>
+    <script src="resources/scripts/jquery-1.7.1.min.js"></script>
+    <script src="resources/scripts/axutils.js"></script>
+    <script src="resources/scripts/jquery-ui-1.8.10.custom.min.js"></script>
+    <script src="resources/scripts/axurerp_beforepagescript.js"></script>
+    <script src="resources/scripts/messagecenter.js"></script>
+<script src='Login_files/data.js'></script>
 </head>
 <body>
-<div id="turn"></div>
-<div id="word"></div>
-<input id="hopefullyaword"></input>
-<div id="bustamove" style="color: #00ee00; padding: 10px; background: #444; display: block; width: 200px;">MOVE BITCH GET OUTTA DA WAY</div>
+<div id="main_container">
+
+<div id="u0" class="u0_container"   >
+<div id="u0_img" class="u0_normal detectCanvas"></div>
+<div id="u1" class="u1" style="visibility:hidden;"  >
+<div id="u1_rtf"></div>
+</div>
+</div>
+<DIV id="u2" style="border-style:dotted; border-color:red; visibility:hidden; position:absolute; left:0px; top:0px; width:10px; height:10px;;" ></div>
+<INPUT id="u3" type=text value="name" class="u3" data-label="username"    >
+
+<INPUT id="u4" type=password value="password" class="u4" data-label="password"    >
+
+<div id="u5"  ></div>
+<div id="u6"  ></div>
+<div id="u7"  ></div>
+<DIV id="u8" style="visibility:hidden;" data-label="Alert">
+<DIV id="pd0u8" style="" data-label="State1">
+<div id="u9" class="u9_container"   >
+<div id="u9_img" class="u9_normal detectCanvas"></div>
+<div id="u10" class="u10" style="visibility:hidden;"  >
+<div id="u10_rtf"></div>
+</div>
+</div>
+<div id="u11" class="u11_container"   >
+<div id="u11_img" class="u11_normal detectCanvas"></div>
+<div id="u12" class="u12"  >
+<div id="u12_rtf"><p style="text-align:center;"><span style="font-family:Arial;font-size:36px;font-weight:bold;font-style:normal;text-decoration:none;color:#FEFFFE;">OK</span></p></div>
+</div>
+</div>
+<div id="u13" class="u13"  >
+<div id="u13_rtf"><p style="text-align:center;"><span style="font-family:Arial;font-size:36px;font-weight:bold;font-style:normal;text-decoration:none;color:#FEFFFE;">Note</span><span style="font-family:Arial;font-size:15px;font-weight:bold;font-style:normal;text-decoration:none;color:#FEFFFE;"></span></p><p style="text-align:center;"><span style="font-family:Arial;font-size:28px;font-weight:normal;font-style:normal;text-decoration:none;color:#FEFFFE;">No password or sign up needed for this demo. Just type in your name!</span></p></div>
+</div>
+</DIV>
+</DIV>
+<div id="u14"  ></div>
+</div>
+<div class="preload"><img src="Login_files/u0_normal.png" width="1" height="1"/><img src="Login_files/u9_normal.png" width="1" height="1"/><img src="Login_files/u11_normal.png" width="1" height="1"/></div>
 </body>
+<script src="resources/scripts/axurerp_pagescript.js"></script>
+<script src="Login_files/axurerp_pagespecificscript.js" charset="utf-8"></script>
