@@ -4,7 +4,9 @@ $(function(){
   var submit_button = $("#u104");
   var your_word = $("#u4");
   var their_word = $("#u7");
+  var input_touched = false;
 
+  text_input.prop('disabled', true);
 
   function isMyTurn(data) {
     if( data.you == data.gamestate.players[data.gamestate.turn] ) 
@@ -18,9 +20,13 @@ $(function(){
       console.log(data);
       
       if(isMyTurn(data)) {
-        $("#turn").html("it's your turn");
+        if(!input_touched)
+          text_input.val("your turn");
+        text_input.prop('disabled', false);
       } else {
-        $("#turn").html("waiting for opponent");
+        if(!input_touched)
+          text_input.val("waiting for opponent");
+        text_input.prop('disabled', true);
       }      
       
       if(isMyTurn(data)) {
@@ -30,10 +36,12 @@ $(function(){
   };
 
   text_input.click(function(){
+    input_touched = true;
     text_input.val('');
   });
 
   submit_button.click(function(){
+    input_touched = false;
     $.post('/move', { 'word' : text_input.val() }, function(data) {
       if(data != "") {
         //  if there was an error, the server will return it in the response

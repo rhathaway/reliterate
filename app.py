@@ -64,13 +64,13 @@ def move():
   
   game = getGame(session['player_id'])
   if not game.isPlayerTurn(session['player_id']):
-    return "It's not your turn, dumbass.";
+    return "It's not your turn.";
   
   new_word = request.form['word']
-  if not game.the_last_word or game.the_last_word[-1] == new_word[0]:
+  if not game.the_last_word or game.the_last_word.lower()[-1] == new_word.lower()[0]:
     game.the_last_word = new_word
   else:
-    return "That word sucks."
+    return "Your word must start with the last letter of your opponent's word."
 
   if not  game.turn:
     game.turn = 1
