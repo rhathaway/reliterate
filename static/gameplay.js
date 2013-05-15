@@ -8,6 +8,16 @@ $(function(){
 
   text_input.prop('disabled', true);
 
+  function leaveGame() {
+    $.getJSON('/leavegame', function(data) {
+      location.href = "/static/Dashboard.html";
+    });
+  }
+
+  $("#leavegame").click(function(){
+    leaveGame();
+  });
+
   function isMyTurn(data) {
     if( data.you == data.gamestate.players[data.gamestate.turn] ) 
       return true;
@@ -19,6 +29,13 @@ $(function(){
     $.getJSON('/gamestate', function(data) {
       console.log(data);
       
+      //your_word.html(data.you);
+      if(data.alert) {
+        alert(data.alert);
+        leaveGame();  
+      }
+
+
       if(isMyTurn(data)) {
         if(!input_touched)
           text_input.val("your turn");
