@@ -115,7 +115,7 @@ def move():
   if not game.isPlayerTurn(session['player_id']):
     return "It's not your turn.";
   
-  new_word = request.form['word']
+  new_word = strip(request.form['word'])
   if game.moves == [] or game.moves[-1].lower()[-1] == new_word.lower()[0]:
     game.moves.append(new_word)
   else:
